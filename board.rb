@@ -15,7 +15,13 @@ class Board
       raise ArgumentError, "Invalid position. Example: {:row => 0, :column => 0}. Values for row and column should be between 0 and 2"
     end
 
+    raise TakenPositionError, "Invalid Position" unless empty_position?(position)
+
     @tokens[row][column] = value
+  end
+
+  def empty_position?(position)
+    @tokens[position[:row]][position[:column]] == ' '
   end
 
   def x_won?
@@ -51,5 +57,7 @@ class Board
     end
     board
   end
+end
 
+class TakenPositionError < ArgumentError
 end

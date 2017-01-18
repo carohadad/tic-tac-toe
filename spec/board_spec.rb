@@ -97,4 +97,14 @@ RSpec.describe Board do
     end
   end
 
+  it "should know if a position if free or empty" do
+    expect(@board.empty_position?({:row => 1, :column => 2})).to eq(true)
+    @board.move({:row => 1, :column => 2}, :x)
+    expect(@board.empty_position?({:row => 1, :column => 2})).to eq(false)
+  end
+
+  it "should not be able to move to a taken position" do
+    @board.move({:row => 1, :column => 2}, :x)
+    expect {@board.move({:row => 1, :column => 2}, :o) }.to raise_error(TakenPositionError)
+  end
 end
