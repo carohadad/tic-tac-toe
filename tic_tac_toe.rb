@@ -22,12 +22,10 @@ class TicTacToe
   def move(user_input)
     move = user_input.split(",")
     position = {:row => move[0].to_i, :column => move[1].to_i}
+    player = if turn_player_1? then :x else :o end
 
-    if turn_player_1?
-      @board.move(position, :x)
-    else
-      @board.move(position, :o)
-    end
+    @board.move(position, player)
+
     @move_index += 1
   end
 
@@ -35,7 +33,6 @@ end
 
 
 
-prompt = '> '
 game = TicTacToe.new
 
 puts "Hello!! Welcome to the Tic Tac Toe game!"
@@ -53,10 +50,15 @@ while (game.nobody_won_yet?)
     puts "It's Player 2's turn. Player 2 uses O"
   end
   puts "Enter your move in format row,column. Example 2,1 for row: 2 colum: 1"
-  puts prompt
+  puts '> '
   user_input = $stdin.gets.chomp
 
-  game.move(user_input)
+  begin
+    game.move(user_input)
+  rescue TakenPositionError
+    puts "Taken position, try another one"
+  end
+
 end
 
 puts "Someone won! end of game"
