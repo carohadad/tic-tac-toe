@@ -40,42 +40,42 @@ RSpec.describe Board do
     expect {@board.move({:row => 2, :column => 2}, :r) }.to raise_error(ArgumentError)
   end
 
-  describe "Test win moves" do
-    it "should win if the first row is full" do
+  describe "Test won moves" do
+    it "should won if the first row is full" do
       @board.move({:row => 0, :column => 0}, :x)
       @board.move({:row => 0, :column => 1}, :x)
       @board.move({:row => 0, :column => 2}, :x)
-      expect(@board.x_wins?).to eq(true)
+      expect(@board.x_won?).to eq(true)
     end
 
-     it "should win if the last row is full" do
+     it "should won if the last row is full" do
       @board.move({:row => 2, :column => 0}, :x)
       @board.move({:row => 2, :column => 1}, :x)
       @board.move({:row => 2, :column => 2}, :x)
-      expect(@board.x_wins?).to eq(true)
+      expect(@board.x_won?).to eq(true)
     end
 
-    it "should not win if the last row has an O" do
+    it "should not won if the last row has an O" do
       @board.move({:row => 2, :column => 0}, :x)
       @board.move({:row => 2, :column => 1}, :o)
       @board.move({:row => 2, :column => 2}, :x)
-      expect(@board.x_wins?).to eq(false)
+      expect(@board.x_won?).to eq(false)
     end
 
-    it "should not win if the last row has an empty value" do
+    it "should not won if the last row has an empty value" do
       @board.move({:row => 2, :column => 0}, :o)
       @board.move({:row => 2, :column => 2}, :o)
-      expect(@board.o_wins?).to eq(false)
+      expect(@board.o_won?).to eq(false)
     end
 
-    it "should win if a column is full of o's" do
+    it "should won if a column is full of o's" do
       @board.move({:row => 0, :column => 1}, :o)
       @board.move({:row => 1, :column => 1}, :o)
       @board.move({:row => 2, :column => 1}, :o)
-      expect(@board.o_wins?).to eq(true)
+      expect(@board.o_won?).to eq(true)
     end
 
-     it "should win if a column is full of o's and there are other random values" do
+     it "should won if a column is full of o's and there are other random values" do
       @board.move({:row => 0, :column => 1}, :o)
       @board.move({:row => 1, :column => 1}, :o)
       @board.move({:row => 2, :column => 1}, :o)
@@ -84,16 +84,16 @@ RSpec.describe Board do
       @board.move({:row => 2, :column => 2}, :x)
       @board.move({:row => 0, :column => 0}, :o)
 
-      expect(@board.o_wins?).to eq(true)
+      expect(@board.o_won?).to eq(true)
     end
 
-    it "should win if a diagonal is full of x's" do
+    it "should won if a diagonal is full of x's" do
       @board.move({:row => 0, :column => 0}, :x)
       @board.move({:row => 1, :column => 1}, :x)
       @board.move({:row => 2, :column => 2}, :x)
 
-      expect(@board.x_wins?).to eq(true)
-      expect(@board.o_wins?).to eq(false)
+      expect(@board.x_won?).to eq(true)
+      expect(@board.o_won?).to eq(false)
     end
   end
 

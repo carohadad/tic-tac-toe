@@ -18,15 +18,15 @@ class Board
     @tokens[row][column] = value
   end
 
-  def x_wins?
-    wins?(:x)
+  def x_won?
+    won?(:x)
   end
 
-  def o_wins?
-    wins?(:o)
+  def o_won?
+    won?(:o)
   end
 
-  def wins?(player)
+  def won?(player)
     # A full set of the value for player in any of the rows
     return true if @tokens.any? {|row| row.all? {|value| value == player}}
     # A full set of the value for player  in any of the columns
