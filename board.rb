@@ -1,7 +1,7 @@
 class Board
 
   def initialize
-    @tokens = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+    @board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
   end
 
   def move(position, value)
@@ -17,11 +17,11 @@ class Board
 
     raise TakenPositionError, "Invalid Position" unless empty_position?(position)
 
-    @tokens[row][column] = value
+    @board[row][column] = value
   end
 
   def empty_position?(position)
-    @tokens[position[:row]][position[:column]] == ' '
+    @board[position[:row]][position[:column]] == ' '
   end
 
   def x_won?
@@ -34,13 +34,13 @@ class Board
 
   def won?(player)
     # A full set of the value for player in any of the rows
-    return true if @tokens.any? {|row| row.all? {|value| value == player}}
+    return true if @board.any? {|row| row.all? {|value| value == player}}
     # A full set of the value for player  in any of the columns
-    return true if (0..2).any? {|column| (0..2).all?{|row| @tokens[row][column] == player}}
+    return true if (0..2).any? {|column| (0..2).all?{|row| @board[row][column] == player}}
     # A full set of the value for player  in one diagonal
-    return true if [@tokens[0][0], @tokens[1][1], @tokens[2][2]].all?{ |value| value == player }
+    return true if [@board[0][0], @board[1][1], @board[2][2]].all?{ |value| value == player }
     #A full set of the value for player  in the other diagonal
-    return true if [@tokens[0][2], @tokens[1][1], @tokens[2][0]].all?{ |value| value == player }
+    return true if [@board[0][2], @board[1][1], @board[2][0]].all?{ |value| value == player }
 
     #Otherwise this player does not win
     false
@@ -48,7 +48,7 @@ class Board
 
   def print
     board = ""
-    @tokens.each do |row|
+    @board.each do |row|
       board << "|"
       row.each do |value| 
         board << value.to_s + "|"
