@@ -20,6 +20,18 @@ class Board
     @board[row][column] = value
   end
 
+  def all_positions_taken?
+    result = true
+    (0..2).each do |row|
+      (0..2).each do |column|
+        # and has lower precedence than = so I use && here to avoid the *required* parenthesis in the right side
+        # ref: http://stackoverflow.com/questions/1426826/difference-between-and-and-in-ruby
+        result = result && (not empty_position?({row: row, column: column}))
+      end
+    end
+    result
+  end
+
   def empty_position?(position)
     @board[position[:row]][position[:column]] == ' '
   end

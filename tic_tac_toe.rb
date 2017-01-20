@@ -48,7 +48,7 @@ def play_game(game)
   print_format_explanation
   puts "Let's start!"
 
-  while (game.winner == nil) 
+  while (not game.ended?) 
     puts game.print_board
 
     next_player = game.current_player
@@ -73,9 +73,12 @@ def play_game(game)
 
   end
 
-  puts "Someone won! end of game"
-  puts "The winner is:"
-  puts game.winner
+  puts "End of game!"
+  if game.winner
+    puts "The winner is: #{game.winner[:player_name]}" 
+  else
+    puts "Nobody won :(" 
+  end
   puts game.print_board
 end
 

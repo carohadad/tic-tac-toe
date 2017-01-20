@@ -107,4 +107,22 @@ RSpec.describe Board do
     @board.move({:row => 1, :column => 2}, :x)
     expect {@board.move({:row => 1, :column => 2}, :o) }.to raise_error(TakenPositionError)
   end
+
+  it "should verify if all positions are taken" do
+    expect(@board.all_positions_taken?).to eq(false)
+    @board.move({:row => 0, :column => 0}, :o)
+    @board.move({:row => 0, :column => 1}, :x)
+    @board.move({:row => 0, :column => 2}, :o)
+
+    @board.move({:row => 1, :column => 0}, :x)
+    @board.move({:row => 1, :column => 1}, :o)
+    @board.move({:row => 1, :column => 2}, :x)
+
+    expect(@board.all_positions_taken?).to eq(false)
+
+    @board.move({:row => 2, :column => 0}, :o)
+    @board.move({:row => 2, :column => 1}, :x)
+    @board.move({:row => 2, :column => 2}, :o)
+    expect(@board.all_positions_taken?).to eq(true)
+  end
 end

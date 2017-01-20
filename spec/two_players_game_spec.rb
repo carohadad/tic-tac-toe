@@ -40,4 +40,27 @@ RSpec.describe TwoPlayersGame do
     @game.move({:row => 2, :column => 0})
     expect(@game.current_player_is_human?).to eq(true)
   end
+
+  it "should know if the game ended beacause somebody won" do
+    @game.move({:row => 2, :column => 0})
+    @game.move({:row => 0, :column => 0})
+    @game.move({:row => 2, :column => 1})
+    @game.move({:row => 0, :column => 1})
+    @game.move({:row => 2, :column => 2})
+    expect(@game.ended?).to eq(true)
+  end
+
+  it "should know if the game ended beacause all positions are taken" do
+    @game.move({:row => 2, :column => 2})
+    @game.move({:row => 1, :column => 1})
+    @game.move({:row => 0, :column => 0})
+    @game.move({:row => 0, :column => 2})
+    @game.move({:row => 0, :column => 1})    
+    @game.move({:row => 1, :column => 0})
+    @game.move({:row => 1, :column => 2})
+    @game.move({:row => 2, :column => 1})
+    @game.move({:row => 2, :column => 0})
+    expect(@game.winner).to eq(nil)
+    expect(@game.ended?).to eq(true)
+  end
 end

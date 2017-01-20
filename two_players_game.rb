@@ -25,6 +25,10 @@ class TwoPlayersGame
     end
   end
 
+  def ended?
+    @board.x_won? or @board.o_won? or @board.all_positions_taken?
+  end
+
   def print_board
     @board.print
   end
