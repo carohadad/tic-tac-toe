@@ -35,14 +35,13 @@ def print_instructions
 end
 
 def print_format_explanation
+  puts "Invalid value"
   puts "In order to play you need to enter the position for your next move"
   puts "Columns and Rows are indexed from 0 to 2"
   puts "Enter 1,2 if you'd like your move to be entered in row: 1 colum: 2"
 end
 
-def play_two_players_game
-  game = TwoPlayersGame.new
-
+def play_game(game)
   puts game_name
   puts two_players
   puts
@@ -56,15 +55,19 @@ def play_two_players_game
 
     puts "It's #{next_player[:player_name]}'s turn. #{next_player[:player_name]} uses #{next_player[:player_value].to_s}"
     puts '> '
-    user_input = $stdin.gets.chomp
-    move = user_input.split(",")
-    position = {:row => move[0].to_i, :column => move[1].to_i}
 
     begin
-      game.move(position)
+      if game.current_player_is_human?
+        user_input = $stdin.gets.chomp
+        move = user_input.split(",")
+        position = {:row => Integer(move[0]), :column => Integer(move[1])}
+        game.move(position)
+      else
+        puts "TBI: This never happen for the moment!"
+      end
     rescue TakenPositionError
       puts "Taken position, try another one"
-    rescue InvalidPositionError
+    rescue InvalidPositionError, ArgumentError
       print_format_explanation
     end
 
@@ -82,7 +85,8 @@ case ARGV[0]
   when 'help'
     print_instructions
   when 'two_players'
-    play_two_players_game
+    game = TwoPlayersGame.new()
+    play_game(game)
   else 
     print_instructions
 end

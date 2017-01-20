@@ -11,6 +11,10 @@ class TwoPlayersGame
     @player_turn = PLAYER_1
   end
 
+  def current_player_is_human?
+    true
+  end
+
   def winner
     if @board.x_won?
       PLAYER_1

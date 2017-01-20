@@ -10,7 +10,6 @@ RSpec.describe TwoPlayersGame do
   it "should create an empty Game" do
     expect(@game.current_player).to eq({:player_name => "Player 1", :player_value => :x})
     expect(@game.winner).to eq(nil)
-
   end
 
   it "should advance the game if a movement is made" do
@@ -34,5 +33,11 @@ RSpec.describe TwoPlayersGame do
     @game.move({:row => 2, :column => 2})
     expect(@game.winner).to eq({:player_name => "Player 1", :player_value => :x})
     expect(@game.print_board).to eq "|o|o| |\n| | | |\n|x|x|x|\n" 
+  end
+
+  it "current_player is allways human" do
+    expect(@game.current_player_is_human?).to eq(true)
+    @game.move({:row => 2, :column => 0})
+    expect(@game.current_player_is_human?).to eq(true)
   end
 end
