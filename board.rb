@@ -12,7 +12,7 @@ class Board
     column = position[:column]
 
     unless (0..2).include? row and (0..2).include? column
-      raise ArgumentError, "Invalid position. Example: {:row => 0, :column => 0}. Values for row and column should be between 0 and 2"
+      raise InvalidPositionError, "Invalid position. Example: {:row => 0, :column => 0}. Values for row and column should be between 0 and 2"
     end
 
     raise TakenPositionError, "Invalid Position" unless empty_position?(position)
@@ -60,4 +60,7 @@ class Board
 end
 
 class TakenPositionError < ArgumentError
+end
+
+class InvalidPositionError < ArgumentError
 end

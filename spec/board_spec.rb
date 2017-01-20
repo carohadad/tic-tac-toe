@@ -33,7 +33,7 @@ RSpec.describe Board do
   end
 
   it "should fail if the position index is out of range" do 
-    expect {@board.move({:row => 3, :column => 0}, :x) }.to raise_error(ArgumentError)
+    expect {@board.move({:row => 3, :column => 0}, :x) }.to raise_error(InvalidPositionError)
   end
 
   it "should fail if the value is invalid" do 
